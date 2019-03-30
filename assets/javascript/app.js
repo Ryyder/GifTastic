@@ -1,15 +1,12 @@
+
 //sports array
 var sports = ["Golf", "Basketball", "Baseball", "Football", "Soccer", "Tennis", "Cricket", "Ski", "Snowboard", "Skateboard", "Cycling", "Rugby", "Boxing", "Formula 1", "Snooker", "Hockey", "Volleyball", "Badminton", "Gymnastics", "Wrestling"];
-//api key for giphy
-var APIKey = "PX195iAvln0Y8Z14iANdffEwmEgv5axh"; 
-//holds the topic on which the user has clicked
-/* var topic = "dogs"; */
-var limit = 10;
-//ajax query
- /* var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=" + APIKey + "&limit=" + limit; */
 
-//console.log("apikey: " + APIKey);
-//console.log("queryURL: " + queryURL);
+//api key for giphy
+var APIKey = "PX195iAvln0Y8Z14iANdffEwmEgv5axh";
+
+//query limited to 10 for results
+var limit = 10;
 
 //generate our buttons
 function makeButtons() {
@@ -47,117 +44,126 @@ function displayGIF() {
 
   //variable to hold topic from clicked button
   var topic = $(this).attr("data-name");
+
   //ajax query url
   var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=" + APIKey + "&limit=" + limit;
 
   console.log("topic clicked: " + topic);
 
   //our ajax request
-  $.ajax ({
+  $.ajax({
     url: queryURL,
     method: "GET"
-  }).then(function(response) {
+  }).then(function (response) {
     console.log(response);
 
 
     for (var j = 0; j < response.data.length; j++) {
 
       //create div to hold gif
-      var gifDiv = $("<div class='gif'>");
+      var gifDiv = $("<div>");
+      gifDiv.addClass("gif-rating");
 
       //store rating data
       var gifRating = response.data[j].rating;
-  
+
+      console.log("rating: " + gifRating);
+
       //create element to hold rating
       var pRating = $("<p>").text("Rating: " + gifRating);
 
       //display rating
-      gifDiv.append(pRating);
+      //gifDiv.append(pRating);
+
+      $("#gif-view").prepend(pRating);
 
       //gif url for image (still and active)
       var imgURLStill = response.data[j].images.fixed_width_small_still.url;
-      var imgURLActive = response.data[j].images.fixed_width_small.url; 
+      var imgURLActive = response.data[j].images.fixed_width_small.url;
 
       //img element to hold gif (still when they are first rendered to the page)
       var image = $("<img>");
+      //add a class for our gif-data
       image.addClass("gif-data");
-      image.attr("src", imgURLStill); 
+      //add a image url (default to still)
+      image.attr("src", imgURLStill);
+      //set the state to still
       image.attr("data-state", "still");
+      //include the still image url
       image.attr("data-still", imgURLStill);
+      //include the active image url
       image.attr("data-active", imgURLActive);
 
+      //prepend the images to our html
       $("#gif-view").prepend(image);
 
     }
 
   });
 
-  $(document).on("click", ".gif-data", function() {
-    //gets our value from data-state
-    var state = $(this).attr("data-state");
-
-    var animate = $(this).attr("data-active");
-
-    var still = $(this).attr("data-still");
-
-    if(state == "still") {
-      $(this).attr("src", animate);
-      $(this).attr("data-state", "animate");
-    }
-    else if (state == "animate") {
-      $(this).attr("src", still);
-      $(this).attr("data-state", "still");
-    }
-
-  });
-
-  
 }
 
-$("#find-gif").on("click", function (event) {
+//click event handler to stop/start gifs
+$(document).on("click", ".gif-data", function (event) {
+  //gets our value from data-state
+  var state = $(this).attr("data-state");
+  //gets our value from the active image url
+  var animate = $(this).attr("data-active");
+  //gets our value from the still image url
+  var still = $(this).attr("data-still");
 
-    // Preventing the submit button from trying to submit the form
-    // We're optionally using a form so the user may hit Enter to search instead of clicking the button
-    event.preventDefault();
+  console.log(event);
 
-    //create variable and clear input field on key press or submit
-    var inputField = $("#search-form");
-
-
-    // Here we grab the text value from the input box
-    var inputGIF = $("#input-gif").val().trim();
-
-    //at first character of user input, uppercase the letter
-    inputGIF = inputGIF.charAt(0).toUpperCase() + inputGIF.slice(1);
-
-
-    //check to see if the input is null, or if the user request is already in the array. It not, push that to our sports array
-    if (inputGIF != "" && sports.indexOf(inputGIF) == -1) {
-      sports.push(inputGIF);
-    }
-
-    //reset input field after submit
-    inputField[0].reset();
-
-    //generate the buttons after user submits an additional gif to be added
-    makeButtons();
-
-    console.log(sports);
+  //if the state is still....
+  if (state == "still") {
+    //set the src to the active image url
+    $(this).attr("src", animate);
+    //change the data-state to animate
+    $(this).attr("data-state", "animate");
+  }
+  //if the state is animate....
+  else if (state == "animate") {
+    //set the src to the still image url
+    $(this).attr("src", still);
+    //set the data-state to still
+    $(this).attr("data-state", "still");
+  }
 
 });
 
+$("#find-gif").on("click", function (event) {
+
+  // Preventing the submit button from trying to submit the form
+  // We're optionally using a form so the user may hit Enter to search instead of clicking the button
+  event.preventDefault();
+
+  //create variable
+  var inputField = $("#search-form");
+
+
+  // Here we grab the text value from the input box
+  var inputGIF = $("#input-gif").val().trim();
+
+  //at first character of user input, uppercase the letter
+  inputGIF = inputGIF.charAt(0).toUpperCase() + inputGIF.slice(1);
+
+
+  //check to see if the input is null, or if the user request is already in the array. It not, push that to our sports array
+  if (inputGIF != "" && sports.indexOf(inputGIF) == -1) {
+    sports.push(inputGIF);
+  }
+
+  //reset input field after submit
+  inputField[0].reset();
+
+  //generate the buttons after user submits an additional gif to be added
+  makeButtons();
+
+});
+
+//click event handler for all elements with gif-button class
 $(document).on("click", ".gif-button", displayGIF);
 
+//make our buttons on initial page load
 makeButtons();
 
-
-
-
-
-
-/* $.ajax({
-  url: queryURL,
-  method: "GET"
-}).then(function (response) {
-  console.log(response);
-}); */
