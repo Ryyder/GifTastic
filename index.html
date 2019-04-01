@@ -5,29 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <!-- bootstrap link -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <!-- css file -->
   <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
   <title>GifTastic</title>
 </head>
 <body>
+
+    <div class="jumbotron">
+        <h1 class="display-4 text-center">GifTastic</h1>
+        <hr class="my-4">
   
-  <div id="button-holder">
+        <!-- div to hold our buttons -->
+        <div id="button-holder"></div>
 
-  </div>
-  
+        <br>
+        <!-- GIFSearch text box -->
+        <form id="search-form">
+          <div class="form-row">
+            <div class="form-group col-3">
+              
+            </div>
+            <div class="form-group col-3">
+              
+            </div>
+            <div class="form-group col-4">
+              <label for="GIFsearch">Search for a GIF!</label>
+              <input type="text" class="form-control" id="input-gif" aria-describedby="emailHelp">
+            </div>
+          </div>
+          <div class="form-row">
+              <div class="form-group col-3">
+                
+              </div>
+              <div class="form-group col-3">
+                
+              </div>
+              <div class="form-group col-4">
+                <!-- GIFSearch submit -->
+                <button type="submit" class="btn btn-outline-dark btn-sm" id="find-gif">GIF Search</button>
+              </div>
+          </div>
+        </form>
 
-  <form id="search-form">
-    <label for="gif-input">Search for a GIF!</label>
-    <input type="text" id="input-gif"><br>
+        <br>
 
-    <!-- This button will trigger our AJAX call -->
-    <input id="find-gif" type="submit" value="GIF Search">
-  </form>
-
-  <!-- We'll gifs will go here -->
-  <div id="gif-view"></div>
+        <!-- put our gifs and ratings here -->
+        <div id="gif-view"></div>
+        
+    </div>
 
 
 

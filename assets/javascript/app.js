@@ -24,7 +24,7 @@ function makeButtons() {
     var btn = $("<button>");
 
     //add class to our <button> element
-    btn.addClass("gif-button");
+    btn.addClass("gif-button btn btn-outline-dark btn-sm");
 
     //add an attribute, data-name with values in our sports array
     btn.attr("data-name", sports[i]);
@@ -34,8 +34,7 @@ function makeButtons() {
 
     //append and add these buttons to our button-holder div
     buttons.append(btn);
-    /* buttons.append(`<button>${sports[i]}</button>`);
-    buttons.attr("data-name", sports[i]); */
+    
   }
 
 }
@@ -60,22 +59,22 @@ function displayGIF() {
 
     for (var j = 0; j < response.data.length; j++) {
 
-      //create div to hold gif
+      //create div to hold gif rating
       var gifDiv = $("<div>");
-      gifDiv.addClass("gif-rating");
+
+      gifDiv.addClass("gif-rating m-2");
 
       //store rating data
       var gifRating = response.data[j].rating;
-
-      console.log("rating: " + gifRating);
 
       //create element to hold rating
       var pRating = $("<p>").text("Rating: " + gifRating);
 
       //display rating
-      //gifDiv.append(pRating);
+      gifDiv.append(pRating);
 
-      $("#gif-view").prepend(pRating);
+      $("#gif-view").prepend(gifDiv);
+
 
       //gif url for image (still and active)
       var imgURLStill = response.data[j].images.fixed_width_small_still.url;
@@ -83,19 +82,27 @@ function displayGIF() {
 
       //img element to hold gif (still when they are first rendered to the page)
       var image = $("<img>");
+
       //add a class for our gif-data
       image.addClass("gif-data");
+
       //add a image url (default to still)
       image.attr("src", imgURLStill);
+
       //set the state to still
       image.attr("data-state", "still");
+
       //include the still image url
       image.attr("data-still", imgURLStill);
+
       //include the active image url
       image.attr("data-active", imgURLActive);
 
-      //prepend the images to our html
-      $("#gif-view").prepend(image);
+      //append our images to our gifDiv
+      var imgDiv = gifDiv.append(image);
+
+      //prepend images and rating to our gif-view div
+      $("#gif-view").prepend(imgDiv);
 
     }
 
@@ -105,10 +112,13 @@ function displayGIF() {
 
 //click event handler to stop/start gifs
 $(document).on("click", ".gif-data", function (event) {
+
   //gets our value from data-state
   var state = $(this).attr("data-state");
+
   //gets our value from the active image url
   var animate = $(this).attr("data-active");
+
   //gets our value from the still image url
   var still = $(this).attr("data-still");
 
@@ -116,15 +126,19 @@ $(document).on("click", ".gif-data", function (event) {
 
   //if the state is still....
   if (state == "still") {
+
     //set the src to the active image url
     $(this).attr("src", animate);
+
     //change the data-state to animate
     $(this).attr("data-state", "animate");
   }
   //if the state is animate....
   else if (state == "animate") {
+
     //set the src to the still image url
     $(this).attr("src", still);
+
     //set the data-state to still
     $(this).attr("data-state", "still");
   }
