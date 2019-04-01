@@ -45,7 +45,7 @@ function displayGIF() {
   var topic = $(this).attr("data-name");
 
   //ajax query url
-  var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=" + APIKey + "&limit=" + limit;
+  var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=" + APIKey + "&limit=" + limit;
 
   console.log("topic clicked: " + topic);
 
