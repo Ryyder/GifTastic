@@ -1,37 +1,17 @@
-## Welcome to GitHub Pages
+# GifTastic
 
-You can use the [editor on GitHub](https://github.com/Ryyder/GifTastic/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+## Overview:
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+A GIF Generator. The user can type in any subject/topic they want into the search bar. This will return 10 GIFs. Clicking on each gif will have it animate. You can stop the animation by clicking the gif again. The topic, will also have a button created at the top of the page, so you can come back to it later if user wants to.
 
-### Markdown
+### Dependencies:
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+- None
 
-```markdown
-Syntax highlighted code block
+### Image Formats:
 
-# Header 1
-## Header 2
-### Header 3
+- .png, .jpg
 
-- Bulleted
-- List
+## Installation:
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Ryyder/GifTastic/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+> git clone `https://github.com/Ryyder/GifTastic.git`
